@@ -1,0 +1,4 @@
+{
+    "mongodb_uri":"localhost/tplserver",
+    "tpl_data_ttl": 160
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="https://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="https://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+            <header class="bar bar-nav">
+                <a class="button button-link button-nav pull-left" href="#" id="page-back">
+                  <span class="icon icon-left"></span>
+                  返回
+                </a>
+                <h1 class="title">{{title}}</h1>
+                <a class="button button-link button-nav pull-right" href="#" id="page-submit">
+                  完成
+                  <span class="icon icon-right"></span>
+                </a>
+            </header>
+            <div class="content">
+                {{{body}}}
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='https://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='https://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='https://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    {{{body_script}}}
+    <script>
+    $(document).on("pageInit", function(e, pageId, $page) {
+        $("#page-back").click(function(){
+            alert("返回原生代码");
+        });
+        $("#page-submit").click(function(){
+            if(!window.pageSubmit) return alert("模版JS中没有实现pageSubmit方法！");
+            var data = pageSubmit();
+            
+
+            {{#if uid}}
+                $.ajax({
+                    url:'./submit',
+                    //method: "POST",
+                    type:'POST',
+                    contentType:'application/json',
+                    dataType:'json',
+                    data: JSON.stringify(Object.assign({
+                        uid:"{{uid}}",tpl:"{{tpl}}"
+                    },{payload:data})),
+                    error:function(xhr,status,err){
+                        console.log(status,err);
+                    },
+                    success:function(resp){
+                        console.log(resp);
+                        alert(JSON.stringify(data,null,4));
+                    }
+                });
+            {{/if}}
+        });
+    });
+    $.init();
+    </script>
+
+  </body>
+</html>
