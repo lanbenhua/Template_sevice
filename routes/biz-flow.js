@@ -21,7 +21,7 @@ function createTrack(req,renderData){
 
 /* biz-flow */
 router.get('/:tpl', (req, res, next)=> {
-  let {data_id:tplDataId} = req.query;
+  let {data_id:tplDataId,last} = req.query;
   if(!tplDataId){
     return res.render('error',{ layout:false, error: '未提供参数data_id' });
   }
@@ -30,7 +30,11 @@ router.get('/:tpl', (req, res, next)=> {
   tplDataCol.findOne({_id:monk.id(tplDataId)})
   .then((doc)=>{
      if(!doc) throw new Error(`渲染模版的数据${tplDataId}已经不存在（可能因过期而被清除）`);
-     return Promise.all([doc, submitDataCol.findOne({uid:doc.uid,tpl:req.params.tpl}), createTrack(req,doc)]);
+     return Promise.all([
+        doc, 
+        ['no','false','0'].includes(last) ? null : submitDataCol.findOne({uid:doc.uid,tpl:req.params.tpl}), 
+        createTrack(req,doc)
+     ]);
   })
   .then(([doc,lastSubmit,submitToken])=>{
      fs.access(path.join(__dirname, '..', 'public', 'biz-flow', req.params.tpl + '.js'), fs.constants.F_OK, (err)=>{
