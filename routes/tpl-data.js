@@ -3,9 +3,13 @@ const express = require('express'),
 
 /* tpl-data */
 router.post('/', function(req, res, next) {
+   let uid = req.query.uid || req.body.uid;
+   if(!uid) res.status(400).send({ error: '缺少uid参数'});
+   delete req.body.uid;
+
    req.db.get('tpl_data').insert({
-            payload:req.body,
-            uid: req.query.uid || req.body.uid,
+            payload: req.body,
+            uid,
             createdAt:new Date()
         })
         .then(({createdAt,_id:data_id})=>{

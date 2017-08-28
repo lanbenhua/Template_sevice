@@ -33,9 +33,11 @@ const bindDb = (req,res,next)=>{
     next();
 };
 
-app.use('/', index);
+const {verifyToken} = require('./routes/token-utils');
+
+app.use('/', bindDb, index);
 app.use('/tpl-data', bindDb, tplData);
-app.use('/biz-flow', bindDb, bizFlow);
+app.use('/biz-flow', bindDb, verifyToken, bizFlow);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

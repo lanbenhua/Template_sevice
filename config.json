@@ -1,4 +1,6 @@
 {
     "mongodb_uri":"localhost/tplserver",
-    "tpl_data_ttl": 160
+    "tpl_data_ttl": 160,
+    "submit_token_ttl": 1600,
+    "jwt_token_secret": "此密码在客户端APP和本服务端需一致"
 }
