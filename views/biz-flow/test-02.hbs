@@ -1,0 +1,27 @@
+<div class="list-block">
+    <ul>
+        <li>
+            <div class="item-content item-link">
+              <div class="item-inner">
+                <div class="item-title label">报销类型</div>
+                <div class="item-input">
+                  <input type="text" id="picker" name="payType" value="{{lastSubmit.payType}}" style="text-align: right;" placeholder="请选择(必选)"/>
+                </div>
+              </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="list-block">  
+    <ul>
+      <li class="align-top">
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-input">
+              <textarea name="payReason" value="{{lastSubmit.payReason}}" maxlength="300" placeholder="请输入报销事由"></textarea>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+</div>
