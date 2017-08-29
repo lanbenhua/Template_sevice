@@ -63,5 +63,9 @@
 </ul>
 </div>
 <div class="list-block" id="taxpayerNo-input" {{#unless lastSubmit.hasTaxpayerNo}}style="display:none"{{/unless}}> 
+{{#if taxpayerNoTpl}}
+{{> (lookup . 'taxpayerNoTpl')}}
+{{else}}
 {{> taxpayerNo}}
+{{/if}}
 </div>
