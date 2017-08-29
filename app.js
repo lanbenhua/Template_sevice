@@ -8,10 +8,12 @@ const config = require('./config.json');
 const index = require('./routes/index');
 const bizFlow = require('./routes/biz-flow');
 const tplData = require('./routes/tpl-data');
+const exphbs  = require('express-handlebars');
 
 const app = express();
 
 // view engine setup
+app.engine('hbs', exphbs({extname: '.hbs',defaultLayout:'biz-flow'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
