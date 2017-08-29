@@ -96,27 +96,26 @@
         }
 
         function backToNative(){
-            gJsBridge.callHandler('appPageBack', {}, function(response){
-                // toast(response);
-            }.bind(this));
-
-            // gJsBridge.callHandler('appFormSubmit', { 'value': JSON.stringify(jsonResult) }, function(response){
-        
-            // }.bind(this));
+            if(gJsBridge){
+                gJsBridge.callHandler('appPageBack', {}, function(response){
+                    // toast(response);
+                }.bind(this));
+            }
+            else{
+                $.alert('返回原生代码');
+            }
         }
 
         console.log($.device);
         $("#page-back").click(function(){
-            if(typeof backToNative !== 'undefined'){
-                backToNative()
-            }else{
-                $.alert('返回原生代码');
-            }
+                backToNative();
         });
-        $("#page-submit").click(function(){
+        $("#page-submit").on('click',function(){
             if(!window.pageSubmit) return alert("模版JS中没有实现pageSubmit方法！");
             var data = pageSubmit();
-            
+            // gJsBridge.callHandler('appFormSubmit', { 'value': JSON.stringify(jsonResult) }, function(response){
+        
+            // }.bind(this));
 
             {{#if uid}}
                 $.ajax({
@@ -143,6 +142,5 @@
     });
     $.init();
     </script>
-
   </body>
 </html>
