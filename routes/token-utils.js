@@ -10,8 +10,9 @@ function jwtErrMsg(err){
 exports.verifyToken = (req,res,next)=>{
     let token = req.query.token || req.body.token;
     delete req.body.token;
-    
+
     if(!token){
+      if(req.method == 'GET' && process.env.DISABLE_TOKEN == 'true') return next();
       return res.render('error',{ layout:false, error: '未提供参数token' });
     }
 
