@@ -62,17 +62,6 @@
         </li>
 </ul>
 </div>
-<div class="list-block" id="taxpayerNo-input" {{#unless lastSubmit.hasTaxpayerNo}}style="display:none"{{/unless}}>  
-    <div class="content-block-title">纳税人识别号</div>
-    <ul>
-        <li>
-            <div class="item-content">
-              <div class="item-inner">
-                <div class="item-input">
-                  <input type="text" placeholder="" name="taxpayerNo" value="{{lastSubmit.taxpayerNo}}"／>
-                </div>
-              </div>
-            </div>
-      </li>
-    </ul>
+<div class="list-block" id="taxpayerNo-input" {{#unless lastSubmit.hasTaxpayerNo}}style="display:none"{{/unless}}> 
+{{> taxpayerNo}}
 </div>
