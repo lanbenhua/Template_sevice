@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="https://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
     <link rel="stylesheet" href="https://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
   </head>
   <body>
     <div class="page-group">
@@ -35,6 +35,11 @@
     <script type='text/javascript' src='https://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='https://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='https://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="../javascripts/zepto.callbacks.js" type="text/javascript"></script>
+    <script src="../javascripts/zepto.Deferred.js" type="text/javascript"></script>
+    {{#if validate_plugins}}
+        <script src="../javascripts/cxValidation.js" type="text/javascript"></script>
+    {{/if}}
     {{{body_script}}}
     <script>
     $(document).on("pageInit", function(e, pageId, $page) {
@@ -111,11 +116,30 @@
                 backToNative();
         });
         $("#page-submit").on('click',function(){
-            if(!window.pageSubmit) return alert("模版JS中没有实现pageSubmit方法！");
+            if(!window.pageSubmit) return $.alert("模版JS中没有实现pageSubmit方法！");
             var data = pageSubmit();
             // gJsBridge.callHandler('appFormSubmit', { 'value': JSON.stringify(jsonResult) }, function(response){
         
             // }.bind(this));
+            var options = {
+              complete: function(result) {
+                console.log('验证完成', result);
+                if(result.status){
+                    $.toast('验证通过');
+                }else{
+                    $.toast(result.message);
+                    $(result.element).focus();
+                }
+              },
+              success: function(result) {
+                //console.log('验证通过', result);
+              },
+              error: function(result) {
+               // console.log('验证失败', result);
+              }
+            };
+            var flag_validate = $.cxValidation($('#expense_form'),options); // return true or false
+            console.log(flag_validate);
 
             {{#if uid}}
                 $.ajax({
@@ -134,10 +158,11 @@
                     },
                     success:function(resp){
                         console.log(resp);
-                        alert(JSON.stringify(data,null,4));
+                       // alert(JSON.stringify(data,null,4));
                     }
                 });
             {{/if}}
+            
         });
     });
     $.init();
