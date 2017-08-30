@@ -1,59 +1,12 @@
-<div class="list-block">
-    <ul>
-        <li>
-            <div class="item-content item-link">
-              <div class="item-inner">
-                <div class="item-title label">报销类型</div>
-                <div class="item-input">
-                  <input type="text" class="data-picker" name="payType" value="{{lastSubmit.payType}}" style="text-align:right;" placeholder="请选择(必选)"/>
-                </div>
-              </div>
-            </div>
-        </li>
-        <li class="align-top">
-          <div class="item-content">
-            <div class="item-inner">
-              <div class="item-input">
-                <textarea name="payReason" maxlength="300" placeholder="请输入报销事由">{{lastSubmit.payReason}}</textarea>
-              </div>
-            </div>
-          </div>
-      </li>
-    </ul>
-</div>
-
-<div class="list-block" id="detailList">
-{{#if lastSubmit.payItems}}
-  {{#each lastSubmit.payItems}}
-    <div class="ud-list-block-item">
-      <div class="content-block-title">报销明细</div>
+<form id="expense_form">
+  <div class="list-block">
       <ul>
           <li>
               <div class="item-content item-link">
                 <div class="item-inner">
-                  <div class="item-title label">费用类型</div>
+                  <div class="item-title label">报销类型</div>
                   <div class="item-input">
-                    <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right"/>
-                  </div>
-                </div>
-              </div>
-          </li>
-          <li>
-              <div class="item-content item-link">
-                <div class="item-inner">
-                  <div class="item-title label">发生时间</div>
-                  <div class="item-input">
-                    <input type="text" class="date-picker" placeholder="请选择(必选)" name="beginDate" value="{{this.beginDate}}" style="text-align:right"/>
-                  </div>
-                </div>
-              </div>
-          </li>
-          <li>
-              <div class="item-content">
-                <div class="item-inner">
-                  <div class="item-title label">费用金额</div>
-                  <div class="item-input">
-                    <input type="text" placeholder="输入金额，最多两位小数" name="payAmount" value="{{this.payAmount}}"/>
+                    <input type="text" class="data-picker" name="payType" value="{{lastSubmit.payType}}" style="text-align:right;" placeholder="请选择(必选)" data-validation="required" data-validation-message="报销类型必选"/>
                   </div>
                 </div>
               </div>
@@ -62,34 +15,154 @@
             <div class="item-content">
               <div class="item-inner">
                 <div class="item-input">
-                  <textarea name="payDescription" maxlength="300" placeholder="请输入费用说明">{{this.payDescription}}</textarea>
+                  <textarea name="payReason" maxlength="300" placeholder="请输入报销事由" data-validation="required" data-validation-message="报销事由不能为空">{{lastSubmit.payReason}}</textarea>
                 </div>
               </div>
             </div>
-          </li>
+        </li>
       </ul>
-    </div>
- {{/each}}
- {{else}}
- <div class="ud-list-block-item">
-      <div class="content-block-title">报销明细</div>
-      <ul>
-          <li>
-              <div class="item-content item-link">
+  </div>
+
+  <div class="list-block" id="detailList">
+  {{#if lastSubmit.payItems}}
+    {{#each lastSubmit.payItems}}
+      <div class="ud-list-block-item">
+        <div class="content-block-title">
+        {{#if @first}}
+            报销明细
+          {{else}}
+           <div class="row">
+            <div class="col-50">报销明细</div>
+            <div class="col-50"><span class="delete-button">删除</span></div>
+          </div>
+        {{/if}}
+        </div>
+        <ul>
+            <li>
+                <div class="item-content item-link">
+                  <div class="item-inner">
+                    <div class="item-title label">费用类型</div>
+                    <div class="item-input">
+                      <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content item-link">
+                  <div class="item-inner">
+                    <div class="item-title label">发生时间</div>
+                    <div class="item-input">
+                      <input type="text" class="date-picker" placeholder="请选择(必选)" name="beginDate" value="{{this.beginDate}}" style="text-align:right" data-validation="required" data-validation-message="发生时间必选"/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">费用金额</div>
+                    <div class="item-input">
+                      <input type="text" placeholder="输入金额，最多两位小数" name="payAmount" value="{{this.payAmount}}" data-validation="required,onlyMoney" data-validation-message='{"required":"费用金额不能为空","onlyMoney":"费用金额必须是一个金额，且最多保留两位小数"}'/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li class="align-top">
+              <div class="item-content">
                 <div class="item-inner">
-                  <div class="item-title label">费用类型</div>
                   <div class="item-input">
-                    <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right"/>
+                    <textarea name="payDescription" maxlength="300" placeholder="请输入费用说明" data-validation="required" data-validation-message="费用说明不能为空">{{this.payDescription}}</textarea>
                   </div>
                 </div>
               </div>
-          </li>
-          <li>
-              <div class="item-content item-link">
+            </li>
+        </ul>
+      </div>
+   {{/each}}
+   {{else}}
+   <div class="ud-list-block-item">
+        <div class="content-block-title">报销明细</div>
+        <ul>
+            <li>
+                <div class="item-content item-link">
+                  <div class="item-inner">
+                    <div class="item-title label">费用类型</div>
+                    <div class="item-input">
+                      <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content item-link">
+                  <div class="item-inner">
+                    <div class="item-title label">发生时间</div>
+                    <div class="item-input">
+                      <input type="text" class="date-picker" placeholder="请选择(必选)" name="beginDate" value="{{this.beginDate}}" style="text-align:right" data-validation="required" data-validation-message="发生时间必选"/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">费用金额</div>
+                    <div class="item-input">
+                      <input type="text" placeholder="输入金额，最多两位小数" name="payAmount" value="{{this.payAmount}}" data-validation="required,onlyMoney" data-validation-message='{"required":"费用金额不能为空","onlyMoney":"费用金额必须是一个金额，且最多保留两位小数"}'/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li class="align-top">
+              <div class="item-content">
                 <div class="item-inner">
-                  <div class="item-title label">发生时间</div>
                   <div class="item-input">
-                    <input type="text" class="date-picker" placeholder="请选择(必选)" name="beginDate" value="{{this.beginDate}}" style="text-align:right"/>
+                    <textarea name="payDescription" maxlength="300" placeholder="请输入费用说明" data-validation="required" data-validation-message="费用说明不能为空">{{this.payDescription}}</textarea>
+                  </div>
+                </div>
+              </div>
+            </li>
+        </ul>
+      </div>
+   {{/if}}
+    <div class="ud-button-block" id="add-button"><a href="#" class="button">+ 继续添加明细</a></div>
+  </div>
+
+  <div class="list-block"> 
+      <div class="content-block">
+        <p>
+          请知悉如下信息：<br />
+          1）上传发票信息时，请确认票面与印章是否清晰<br />
+          2）数量是否为批，如果有请提供增值税发票清单；<br />
+        </p>
+      </div> 
+      <ul>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">图片</div>
+            <div class="item-after"><span class="icon icon-picture"></span></div>
+          </div>
+        </li>
+        <div class="upload-content">
+            <div class="upload-item">
+              item1
+            </div>
+            <div class="upload-item">
+              item2
+            </div>
+          </div>
+      </ul>
+  </div>
+
+  <div class="list-block">
+      <ul>
+          <li>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title label">收款单位\人</div>
+                  <div class="item-input">
+                    <input type="text" placeholder="请填写收款单位或个人" name="payee" value="{{lastSubmit.payee}}" data-validation="required" data-validation-message="收款单位\人不能为空"/>
                   </div>
                 </div>
               </div>
@@ -97,179 +170,118 @@
           <li>
               <div class="item-content">
                 <div class="item-inner">
-                  <div class="item-title label">费用金额</div>
+                  <div class="item-title label">收款银行</div>
                   <div class="item-input">
-                    <input type="text" placeholder="输入金额，最多两位小数" name="payAmount" value="{{this.payAmount}}"/>
+                    <input type="text" placeholder="如:中国银行-上海陆家嘴软件园支行" name="payeeBank" value="{{lastSubmit.payeeBank}}" data-validation="required" data-validation-message="收款单位\人不能为空"/>
                   </div>
                 </div>
               </div>
           </li>
-          <li class="align-top">
-            <div class="item-content">
-              <div class="item-inner">
-                <div class="item-input">
-                  <textarea name="payDescription" maxlength="300" placeholder="请输入费用说明">{{this.payDescription}}</textarea>
+          <li>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title label">收款账号</div>
+                  <div class="item-input">
+                    <input type="text" placeholder="请填收款账号" name="payeeAccount" value="{{lastSubmit.payeeAccount}}" data-validation="required,integer" data-validation-message='{"required":"费用金额不能为空","integer":"银行收款账号错误"}'/>
+                  </div>
                 </div>
               </div>
-            </div>
+          </li>
+          <li>
+              <label class="label-checkbox item-content">
+                <div class="item-inner">
+                  <div class="item-title">保存为默认收款人</div>
+                   <input type="checkbox" name="saveAsDefault" {{#if lastSubmit.saveAsDefault}}checked{{/if}} ／>
+                   <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                </div>
+              </label>
           </li>
       </ul>
-    </div>
- {{/if}}
-  <div class="ud-button-block"><a href="#" id="add-button" class="button">+ 继续添加明细</a></div>
-</div>
+  </div>
 
-<div class="list-block"> 
-    <div class="content-block">
-      <p>
-        请知悉如下信息：<br />
-        1）上传发票信息时，请确认票面与印章是否清晰<br />
-        2）数量是否为批，如果有请提供增值税发票清单；<br />
-      </p>
-    </div> 
+  <div class="list-block">
     <ul>
-      <li class="item-content">
-        <div class="item-inner">
-          <div class="item-title">图片</div>
-          <div class="item-after"><span class="icon icon-picture"></span></div>
-        </div>
+      <li>
+        <label class="label-checkbox item-content">
+          <div class="item-inner">
+            <div class="item-title">是否为增值税专用发票</div>
+             <input type="checkbox" name="isVAT" {{#if lastSubmit.isVAT}}checked{{/if}} ／>
+             <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+          </div>
+        </label>
       </li>
-      <div class="upload-content">
-          <div class="upload-item">
-            item1
+      <li>
+        <label class="label-checkbox item-content" id="hasTaxpayerNo-checkbox">
+          <div class="item-inner">
+            <div class="item-title">是否有纳税人识别号</div>
+            <input type="checkbox" id="hasTaxpayerNo" name="hasTaxpayerNo" {{#if lastSubmit.hasTaxpayerNo}}checked{{/if}} ／>
+            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
           </div>
-          <div class="upload-item">
-            item2
-          </div>
-        </div>
+        </label>
+      </li>
+      <li id="taxpayerNo-input" {{#unless lastSubmit.hasTaxpayerNo}}style="display:none"{{/unless}}>
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-title label">纳税人识别号</div>
+                  <div class="item-input">
+                    <input type="text" placeholder="请填写纳税人识别号" name="taxpayerNo" value="{{lastSubmit.taxpayerNo}}" data-validation="condRequired[hasTaxpayerNo]" data-validation-message="纳税人识别号不能为空"／>
+                  </div>
+                </div>
+              </div>
+          </li>
     </ul>
-</div>
-
-<div class="list-block">
-    <ul>
-        <li>
-            <div class="item-content">
-              <div class="item-inner">
-                <div class="item-title label">收款单位/人</div>
-                <div class="item-input">
-                  <input type="text" placeholder="请填写收款单位或个人" name="payee" value="{{lastSubmit.payee}}"/>
-                </div>
-              </div>
-            </div>
-        </li>
-        <li>
-            <div class="item-content">
-              <div class="item-inner">
-                <div class="item-title label">收款银行</div>
-                <div class="item-input">
-                  <input type="text" placeholder="如:中国银行-上海陆家嘴软件园支行" name="payeeBank" value="{{lastSubmit.payeeBank}}"/>
-                </div>
-              </div>
-            </div>
-        </li>
-        <li>
-            <div class="item-content">
-              <div class="item-inner">
-                <div class="item-title label">收款账号</div>
-                <div class="item-input">
-                  <input type="text" placeholder="请填收款账号" name="payeeAccount" value="{{lastSubmit.payeeAccount}}"/>
-                </div>
-              </div>
-            </div>
-        </li>
-        <li>
-            <label class="label-checkbox item-content">
-              <div class="item-inner">
-                <div class="item-title">保存为默认收款人</div>
-                 <input type="checkbox" name="saveAsDefault" {{#if lastSubmit.saveAsDefault}}checked{{/if}} ／>
-                 <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-              </div>
-            </label>
-        </li>
-    </ul>
-</div>
-
-<div class="list-block">
-  <ul>
-    <li>
-      <label class="label-checkbox item-content">
-        <div class="item-inner">
-          <div class="item-title">是否为增值税专用发票</div>
-           <input type="checkbox" name="isVAT" {{#if lastSubmit.isVAT}}checked{{/if}} ／>
-           <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-        </div>
-      </label>
-    </li>
-    <li>
-      <label class="label-checkbox item-content" id="hasTaxpayerNo-checkbox">
-        <div class="item-inner">
-          <div class="item-title">是否有纳税人识别号</div>
-          <input type="checkbox" name="hasTaxpayerNo" {{#if lastSubmit.hasTaxpayerNo}}checked{{/if}} ／>
-          <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-        </div>
-      </label>
-    </li>
-    <li id="taxpayerNo-input" {{#unless lastSubmit.hasTaxpayerNo}}style="display:none"{{/unless}}>
-            <div class="item-content">
-              <div class="item-inner">
-                <div class="item-title label">纳税人识别号</div>
-                <div class="item-input">
-                  <input type="text" placeholder="请填写纳税人识别号" name="taxpayerNo" value="{{lastSubmit.taxpayerNo}}"／>
-                </div>
-              </div>
-            </div>
-        </li>
-  </ul>
-</div>    
+  </div>  
+  <button type="submit" style="display: none" disabled>提交</button>
+</form> 
 
  <script id="tpl_deatil" type="text/tpl">
   <div class="ud-list-block-item">
-    <div class="content-block-title">
-        <div class="row">
-          <div class="col-50">报销明细</div>
-          <div class="col-50"><span class="delete-button">删除</span></div>
-        </div>
-    </div>
-    <ul>
-        <li>
-            <div class="item-content item-link">
-              <div class="item-inner">
-                <div class="item-title label">费用类型</div>
-                <div class="item-input">
-                  <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="" style="text-align:right"/>
-                </div>
-              </div>
-            </div>
-        </li>
-        <li>
-            <div class="item-content item-link">
-              <div class="item-inner">
-                <div class="item-title label">发生时间</div>
-                <div class="item-input">
-                  <input type="text" class="date-picker" placeholder="请选择(必选)" name="beginDate" value="" style="text-align:right"/>
-                </div>
-              </div>
-            </div>
-        </li>
-        <li>
-            <div class="item-content">
-              <div class="item-inner">
-                <div class="item-title label">费用金额</div>
-                <div class="item-input">
-                  <input type="text" placeholder="输入金额，最多两位小数" name="payAmount" value=""/>
-                </div>
-              </div>
-            </div>
-        </li>
-        <li class="align-top">
-          <div class="item-content">
-            <div class="item-inner">
-              <div class="item-input">
-                <textarea name="payDescription" maxlength="300" placeholder="请输入费用说明"></textarea>
-              </div>
-            </div>
+        <div class="content-block-title">
+           <div class="row">
+            <div class="col-50">报销明细</div>
+            <div class="col-50"><span class="delete-button">删除</span></div>
           </div>
-        </li>
-    </ul>
-  </div>
+        </div>
+        <ul>
+            <li>
+                <div class="item-content item-link">
+                  <div class="item-inner">
+                    <div class="item-title label">费用类型</div>
+                    <div class="item-input">
+                      <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content item-link">
+                  <div class="item-inner">
+                    <div class="item-title label">发生时间</div>
+                    <div class="item-input">
+                      <input type="text" class="date-picker" placeholder="请选择(必选)" name="beginDate" value="" style="text-align:right" data-validation="required" data-validation-message="发生时间必选"/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">费用金额</div>
+                    <div class="item-input">
+                      <input type="text" placeholder="输入金额，最多两位小数" name="payAmount" value="" data-validation="required,onlyMoney" data-validation-message='{"required":"费用金额不能为空","onlyMoney":"费用金额必须是一个金额，且最多保留两位小数"}'/>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li class="align-top">
+              <div class="item-content">
+                <div class="item-inner">
+                  <div class="item-input">
+                    <textarea name="payDescription" maxlength="300" placeholder="请输入费用说明" data-validation="required" data-validation-message="费用说明不能为空"></textarea>
+                  </div>
+                </div>
+              </div>
+            </li>
+        </ul>
+      </div>
 </script>
