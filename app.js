@@ -13,7 +13,11 @@ const exphbs  = require('express-handlebars');
 const app = express();
 
 // view engine setup
-app.engine('hbs', exphbs({extname: '.hbs',defaultLayout:'biz-flow'}));
+app.engine('hbs', exphbs({
+    extname: '.hbs',
+    defaultLayout:'biz-flow',
+    helpers: require('./utils/hbs-helpers')
+}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -35,7 +39,7 @@ const bindDb = (req,res,next)=>{
     next();
 };
 
-const {verifyToken} = require('./routes/token-utils');
+const {verifyToken} = require('./utils/token-utils');
 
 app.use('/', bindDb, index);
 app.use('/tpl-data', bindDb, tplData);

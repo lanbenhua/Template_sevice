@@ -3,7 +3,7 @@ const express = require('express'),
       fs = require('fs'),
       monk = require('monk'),
       path = require('path'),
-      {createSubmitToken} = require('./token-utils');
+      {createSubmitToken} = require('../utils/token-utils');
 
 function createTrack(req,renderData){
      let trackDataCol = req.db.get('track_data');
