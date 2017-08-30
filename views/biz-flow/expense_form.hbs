@@ -1,12 +1,12 @@
 <form id="expense_form">
   <div class="list-block">
       <ul>
-          <li>
+          <li class="sup_picker">
               <div class="item-content item-link">
                 <div class="item-inner">
                   <div class="item-title label">报销类型</div>
                   <div class="item-input">
-                    <input type="text" class="data-picker" name="payType" value="{{lastSubmit.payType}}" style="text-align:right;" placeholder="请选择(必选)" data-validation="required" data-validation-message="报销类型必选"/>
+                    <input type="text" id="sup_picker" class="" name="payType" value="{{lastSubmit.payType}}" style="text-align:right;" placeholder="请选择(必选)" data-validation="required" data-validation-message="报销类型必选"/>
                   </div>
                 </div>
               </div>
@@ -38,7 +38,7 @@
         {{/if}}
         </div>
         <ul>
-            <li>
+            <li class="picker">
                 <div class="item-content item-link">
                   <div class="item-inner">
                     <div class="item-title label">费用类型</div>
@@ -84,7 +84,7 @@
    <div class="ud-list-block-item">
         <div class="content-block-title">报销明细</div>
         <ul>
-            <li>
+            <li class="picker">
                 <div class="item-content item-link">
                   <div class="item-inner">
                     <div class="item-title label">费用类型</div>
@@ -138,18 +138,33 @@
         </p>
       </div> 
       <ul>
-        <li class="item-content">
+        <li id="upload-img" class="item-content">
           <div class="item-inner">
             <div class="item-title">图片</div>
             <div class="item-after"><span class="icon icon-picture"></span></div>
           </div>
         </li>
-        <div class="upload-content">
+        <div id="upload-content" class="upload-content">
+          {{#each lastSubmit.attachments}}
             <div class="upload-item">
-              item1
+                <div class="upload-img-content">
+                  <img class="upload-img" src="{{this}}" width="100%"/>
+                </div>
+                <div class="upload-delete"><span class="icon icon-remove"></span></div>
+            </div>
+          {{/each}}
+          {{! test}}
+            <div class="upload-item">
+                <div class="upload-img-content">
+                  <img class="upload-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504685003&di=1bd3020df640ca0a03144718043a01c0&imgtype=jpg&er=1&src=http%3A%2F%2Ffile.popoho.com%2F2016-07-22%2Fa648063b73893b4b2940e124b97b3238.jpg" width="100%"/>
+                </div>
+                <div class="upload-delete"><span class="icon icon-remove"></span></div>
             </div>
             <div class="upload-item">
-              item2
+                <div class="upload-img-content">
+                  <img class="upload-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg" width="100%"/>
+                </div>
+                <div class="upload-delete"><span class="icon icon-remove"></span></div>
             </div>
           </div>
       </ul>
@@ -231,7 +246,6 @@
           </li>
     </ul>
   </div>  
-  <button type="submit" style="display: none" disabled>提交</button>
 </form> 
 
  <script id="tpl_deatil" type="text/tpl">
@@ -243,7 +257,7 @@
           </div>
         </div>
         <ul>
-            <li>
+            <li class="picker">
                 <div class="item-content item-link">
                   <div class="item-inner">
                     <div class="item-title label">费用类型</div>
@@ -284,4 +298,13 @@
             </li>
         </ul>
       </div>
+</script>
+
+<script id="upload_item" type="text/tpl">
+  <div class="upload-item">
+      <div class="upload-img-content">
+        <img class="upload-img" src="{:src}" width="100%"/>
+      </div>
+      <div class="upload-delete"><span class="icon icon-remove"></span></div>
+  </div>
 </script>

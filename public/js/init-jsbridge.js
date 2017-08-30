@@ -72,8 +72,23 @@ $(document).on("pageInit", function(e, pageId, $page) {
             }.bind(this));
         else 
             alert(JSON.stringify(data,null,4));
-
     };
+
+    window.openCamera = function(){
+        if(gJsBridge){
+            gJsBridge.callHandler('openCamera', {}, function(response) {
+                //toast(response);
+            });
+        }
+    };
+    !(function(){
+        if(gJsBridge){
+            gJsBridge.registerHandler('cameraBack', function(data, responseCallback) {
+                cameraCallback(data);
+            })
+        }
+    })()
+
 });
 
 

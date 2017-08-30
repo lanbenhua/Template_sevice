@@ -38,9 +38,15 @@
     {{#if validate_plugins}}
         <script src="../javascripts/cxValidation.js" type="text/javascript"></script>
     {{/if}}
-    {{{body_script}}}
     <script type="text/javascript" src='/js/init-jsbridge.js'></script>
-<script>
+    <script type="text/javascript">
+    var typeData;
+    {{#if type_options}}
+        typeData = {{{json type_options}}};
+    {{/if}}
+    </script>
+    {{{body_script}}}
+    <script>
     $(document).on("pageInit", function(e, pageId, $page) {
 
         $("#page-back").click(function(){
@@ -48,55 +54,55 @@
         });
         $("#page-submit").on('click',function(){
             if(!window.pageSubmit) return $.alert("模版JS中没有实现pageSubmit方法！");
-            var data = pageSubmit();
-            // gJsBridge.callHandler('appFormSubmit', { 'value': JSON.stringify(jsonResult) }, function(response){
-        
-            // }.bind(this));
-            var options = {
-              complete: function(result) {
-                console.log('验证完成', result);
-                if(result.status){
-                    $.toast('验证通过');
-                }else{
-                    $.toast(result.message);
-                    $(result.element).focus();
-                }
-              },
-              success: function(result) {
-                //console.log('验证通过', result);
-              },
-              error: function(result) {
-               // console.log('验证失败', result);
-              }
-            };
-            var flag_validate = $.cxValidation($('#expense_form'),options); // return true or false
-            console.log(flag_validate);
-
-            {{#if uid}}
-                $.ajax({
-                    url:'./submit',
-                    //method: "POST",
-                    type:'POST',
-                    contentType:'application/json',
-                    dataType:'json',
-                    data: JSON.stringify(Object.assign({
-                        uid:"{{uid}}",
-                        tpl:"{{tpl}}",
-                        token:"{{submitToken}}"
-                    },{payload:data})),
-                    error:function(xhr,status,err){
-                        console.log(status,err);
+            var data = pageSubmit(),
+                options = {
+                    complete: function(result) {
                     },
-                    success:function(resp){
-                        console.log(resp);
-                        appFormSubmit(data);
+                    success: function(result) {
+                        $.toast('验证通过');
+                    },
+                    error: function(result) {
+                        $.toast(result.message);
+                        $(result.element).focus();
                     }
-                });
-            {{/if}}
+                },
+                flag = false,  // 验证开关
+                flag_validate = $.cxValidation($('#expense_form'),options); // return true or false
+
+            if(flag_validate && gimgs)  // 表单验证通过在验证图片是否上传
+                flag = gimgs.length > 0 ? true : false;
+
+            console.log('gimgs',JSON.stringify(gimgs));
+            console.log('flag_validate',flag_validate);
+            console.log('flag',flag);
+
+            if(flag){  // 提交给 tplserver
+                {{#if uid}}
+                    $.ajax({
+                        url:'./submit',
+                        //method: "POST",
+                        type:'POST',
+                        contentType:'application/json',
+                        dataType:'json',
+                        data: JSON.stringify(Object.assign({
+                            uid:"{{uid}}",
+                            tpl:"{{tpl}}",
+                            token:"{{submitToken}}"
+                        },{payload:data})),
+                        error:function(xhr,status,err){
+                            console.log(status,err);
+                        },
+                        success:function(resp){
+                            console.log(resp);
+                            appFormSubmit(data); // 提交给客户端
+                        }
+                    });
+                {{/if}}
+            }
             
         });
     });
     $.init();
-</script>
+    </script>
   </body>
 </html>

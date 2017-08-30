@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -11,18 +10,56 @@ a {
 	@notice: 前缀名为"ud-"的为自定义样式
 */
 
+.upload-content {
+	padding: 0 0.75rem;
+	overflow: hidden;
+}
+
+.upload-content .upload-item {
+	position: relative;
+	width: 4.4rem;
+	height: 4.4rem;
+	float: left;
+	margin-right: 0.6rem;
+	margin-bottom: 0.6rem;
+	background: no-repeat center center;
+    background-size: cover;
+}
+
+.upload-content .upload-item .upload-delete {
+	position: absolute;
+	z-index: 2;
+	right: 0;
+	top: 0;
+}
+
+.upload-content .upload-item img {
+	display: block;
+	outline: 0;
+	border: 0;
+}
+
+
+
 /**
  * cxValidation
  * ------------------------------ */
-.cxvalidation_tip{box-sizing:border-box;position:fixed;top:0;left:0;width:100%;padding:0.5em 1em;background-color:rgba(100,0,0,0.8);color:#fff;z-index:999;
--webkit-transform:translate(0,-100%);
-transform:translate(0,-100%);
-transition-property:-webkit-transform;
-transition-property:transform;
-transition-property:transform, -webkit-transform;
-transition-duration:0.2s;
+.cxvalidation_tip{
+	box-sizing:border-box;
+	position:fixed;
+	top:0;left:0;
+	width:100%;
+	padding:0.5em 1em;
+	background-color:rgba(100,0,0,0.8);
+	color:#fff;z-index:999;
+	-webkit-transform:translate(0,-100%);
+	transform:translate(0,-100%);
+	transition-property:-webkit-transform;
+	transition-property:transform;
+	transition-property:transform, -webkit-transform;
+	transition-duration:0.2s;
 }
 .cxvalidation_tip.show{
--webkit-transform:translate(0,0);
-transform:translate(0,0);
+	-webkit-transform:translate(0,0);
+	transform:translate(0,0);
 }
