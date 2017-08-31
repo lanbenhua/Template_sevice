@@ -43,7 +43,10 @@
                   <div class="item-inner">
                     <div class="item-title label">费用类型</div>
                     <div class="item-input">
-                      <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+                      <input type="text" class="data-picker" id="data-picker-{{@index}}"
+                      placeholder="请选择(必选)" 
+                      name="costType" 
+                      value="{{this.costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
                     </div>
                   </div>
                 </div>
@@ -89,7 +92,7 @@
                   <div class="item-inner">
                     <div class="item-title label">费用类型</div>
                     <div class="item-input">
-                      <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+                      <input type="text" class="data-picker" id="data-picker-new" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
                     </div>
                   </div>
                 </div>

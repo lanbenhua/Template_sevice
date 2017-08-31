@@ -107,35 +107,7 @@
         }
     };
 
-    // SUI picker 
-    var picker = {
-        values: [], 
-        init: function(){
-            var _this = this;
-            _this.values = subtypeData_options;
-            _this.bind();
-        },
-        update: function(v){
-            var _this = this;
-            _this.values = v;
-            // $(".data-picker").picker("destroy");
-            _this.bind();
-        },
-        bind: function(){
-            var _this = this,
-                values = _this.values;
-            $(".data-picker").picker({
-                toolbarTemplate: '<header class="bar bar-nav">\
-                    <button class="button button-link pull-right close-picker">确定</button>\
-                    <h1 class="title">费用类型</h1>\
-                    </header>',
-                cols: [{
-                    textAlign: 'center',
-                    values: values
-                }]
-            });
-        }
-    };
+    
     //  图片预览
     var photoBrowser = function(){
         $(document).on('click','.upload-img',function(){
@@ -184,10 +156,9 @@
     };
 
     $(document).on("pageInit", function(e, pageId, $page){
-        console.log('pageInit handler running!');
+            console.log('pageInit handler running!');
 
-        init();
-        function init(){
+        
             getSuptypeData();  // 初始化报销类型数据
             getSubtypeData(); // 初始化费用类型类型数据 默认无
             $.cxValidation.attach($('#expense_form')); // 绑定表单验证
@@ -204,14 +175,28 @@
                         $.each(suptypeData,function(index,item){  //  update subtype data
                             if(item.title === value) getSubtypeData(item.id); 
                         })
-                        picker.update(subtypeData_options);  // update subtype picker data
+
+                        //$('#data-picker-new').picker('replaceValues',subtypeData_options);  // update subtype picker data
                     }
                 }]
             });
 
+            $(".data-picker").picker({
+                toolbarTemplate: '<header class="bar bar-nav">\
+                    <button class="button button-link pull-right close-picker">确定</button>\
+                    <h1 class="title">费用类型</h1>\
+                    </header>',
+                cols: [{
+                    textAlign: 'center',
+                    values: ['']
+                }],
+                onOpen: function (picker) {
+                    picker.cols[0].replaceValues(subtypeData_options);
+                }
+            });
+
             // picker
             $(document).on('click','.picker',function(e){
-                picker.init();
                 $(this).find('.data-picker').picker("open");
             })        
 
@@ -243,7 +228,7 @@
                     $(this).parents('.ud-list-block-item').remove();
                 });
             // }
-        }
+        
     });
 
     $(document).on("pageInit", function(e, pageId, $page) {
@@ -276,7 +261,6 @@
             // bind form event
             // picker.init();
             $(document).on('click','.picker',function(e){
-                picker.init();
                 $(this).find('.data-picker').picker("open");
             }) 
 
