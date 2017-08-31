@@ -39,6 +39,35 @@ a {
 	border: 0;
 }
 
+.approve-content {
+	overflow: hidden;
+}
+
+.approve-content .approve-item {
+	position: relative;
+	width: 4.4rem;
+	height: auto;
+	float: left;
+	margin-right: 0.6rem;
+	margin-bottom: 0.6rem;
+	background: no-repeat center center;
+    background-size: cover;
+}
+
+.approve-item .approve-img-content {
+	width: 2.8rem;
+	height: 2.8rem;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.approve-content .approve-item img {
+	display: block;
+	outline: 0;
+	border: 0;
+	max-width: 100%;
+}
+
 
 
 /**

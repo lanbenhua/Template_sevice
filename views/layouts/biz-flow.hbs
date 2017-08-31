@@ -69,10 +69,21 @@
                 flag = false,  // 验证开关
                 flag_validate = $.cxValidation($('#expense_form'),options); // return true or false
 
-            if(flag_validate && gimgs)  // 表单验证通过在验证图片是否上传
-                flag = gimgs.length > 0 ? true : false;
+            if(flag_validate && gAttachments){ // 表单验证通过在验证图片是否上传
+                var i = 0, l = gAttachments.length;
+                for (; i < l; i++) {
+                    if(gAttachments[i].length > 0){
+                        flag = true;
+                        continue;
+                    }else{
+                        flag = false;
+                        $.toast('图片为上传')
+                        break;
+                    }
+                }
+            }  
 
-            console.log('gimgs',JSON.stringify(gimgs));
+            console.log('gAttachments',JSON.stringify(gAttachments));
             console.log('flag_validate',flag_validate);
             console.log('flag',flag);
 

@@ -28,14 +28,10 @@
     {{#each lastSubmit.payItems}}
       <div class="ud-list-block-item">
         <div class="content-block-title">
-        {{#if @first}}
-            报销明细
-          {{else}}
            <div class="row">
-            <div class="col-50">报销明细</div>
+            <div class="col-50 expense-detail-index">报销明细</div>
             <div class="col-50"><span class="delete-button">删除</span></div>
           </div>
-        {{/if}}
         </div>
         <ul>
             <li class="picker">
@@ -80,19 +76,40 @@
                 </div>
               </div>
             </li>
+            <li class="item-content">
+              <div class="item-inner">
+                <div class="item-title">图片</div>
+                <div class="item-after"><span class="icon icon-picture upload-img-icon"></span></div>
+              </div>
+            </li>
+            <div class="upload-content">
+              {{#each this.attachments}}
+                <div class="upload-item">
+                    <div class="upload-img-content">
+                      <img class="upload-img" src="{{this}}" width="100%"/>
+                    </div>
+                    <div class="upload-delete"><span class="icon icon-remove"></span></div>
+                </div>
+              {{/each}}
+            </div>
         </ul>
       </div>
    {{/each}}
    {{else}}
    <div class="ud-list-block-item">
-        <div class="content-block-title">报销明细</div>
+        <div class="content-block-title">
+          <div class="row">
+            <div class="col-50 expense-detail-index">报销明细</div>
+            <div class="col-50"><span class="delete-button">删除</span></div>
+          </div>
+        </div>
         <ul>
             <li class="picker">
                 <div class="item-content item-link">
                   <div class="item-inner">
                     <div class="item-title label">费用类型</div>
                     <div class="item-input">
-                      <input type="text" class="data-picker" id="data-picker-new" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+                      <input type="text" class="data-picker" id="data-picker-0" placeholder="请选择(必选)" name="costType" value="{{this.costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
                     </div>
                   </div>
                 </div>
@@ -126,51 +143,18 @@
                 </div>
               </div>
             </li>
+            <li class="item-content">
+              <div class="item-inner">
+                <div class="item-title">图片</div>
+                <div class="item-after"><span class="icon icon-picture upload-img-icon"></span></div>
+              </div>
+            </li>
+            <div class="upload-content">
+            </div>
         </ul>
       </div>
    {{/if}}
     <div class="ud-button-block" id="add-button"><a href="#" class="button">+ 继续添加明细</a></div>
-  </div>
-
-  <div class="list-block"> 
-      <div class="content-block">
-        <p>
-          请知悉如下信息：<br />
-          1）上传发票信息时，请确认票面与印章是否清晰<br />
-          2）数量是否为批，如果有请提供增值税发票清单；<br />
-        </p>
-      </div> 
-      <ul>
-        <li id="upload-img" class="item-content">
-          <div class="item-inner">
-            <div class="item-title">图片</div>
-            <div class="item-after"><span class="icon icon-picture"></span></div>
-          </div>
-        </li>
-        <div id="upload-content" class="upload-content">
-          {{#each lastSubmit.attachments}}
-            <div class="upload-item">
-                <div class="upload-img-content">
-                  <img class="upload-img" src="{{this}}" width="100%"/>
-                </div>
-                <div class="upload-delete"><span class="icon icon-remove"></span></div>
-            </div>
-          {{/each}}
-          {{! test}}
-            <div class="upload-item">
-                <div class="upload-img-content">
-                  <img class="upload-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504685003&di=1bd3020df640ca0a03144718043a01c0&imgtype=jpg&er=1&src=http%3A%2F%2Ffile.popoho.com%2F2016-07-22%2Fa648063b73893b4b2940e124b97b3238.jpg" width="100%"/>
-                </div>
-                <div class="upload-delete"><span class="icon icon-remove"></span></div>
-            </div>
-            <div class="upload-item">
-                <div class="upload-img-content">
-                  <img class="upload-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg" width="100%"/>
-                </div>
-                <div class="upload-delete"><span class="icon icon-remove"></span></div>
-            </div>
-          </div>
-      </ul>
   </div>
 
   <div class="list-block">
@@ -248,15 +232,45 @@
               </div>
           </li>
     </ul>
-  </div>  
+  </div> 
+  <div class="list-block">
+      <ul>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">审批人：（管理员设定）</div>
+            <div class="item-after"></div>
+          </div>
+        </li>
+        <div class="approve-content content-padded">
+          <div class="approve-item">
+            <div class="approve-img-content">
+              <img class="approve-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg">
+            </div>
+            <div class="approve-text-content"><span class="approve-text">高育良</span></div>
+          </div>
+          <div class="approve-item">
+            <div class="approve-img-content">
+              <img class="approve-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg">
+            </div>
+            <div class="approve-text-content"><span class="approve-text">高育良</span></div>
+          </div>
+          <div class="approve-item">
+            <div class="approve-img-content">
+              <img class="approve-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg">
+            </div>
+            <div class="approve-text-content"><span class="approve-text">高育良</span></div>
+          </div>
+        </div>
+      </ul>
+  </div>
 </form> 
 
  <script id="tpl_deatil" type="text/tpl">
   <div class="ud-list-block-item">
         <div class="content-block-title">
            <div class="row">
-            <div class="col-50">报销明细</div>
-            <div class="col-50"><span class="delete-button">删除</span></div>
+            <div class="col-50 expense-detail-index">报销明细</div>
+            <div class="col-50"><span class="delete-button">删除</span></div>          
           </div>
         </div>
         <ul>
@@ -265,7 +279,7 @@
                   <div class="item-inner">
                     <div class="item-title label">费用类型</div>
                     <div class="item-input">
-                      <input type="text" class="data-picker" placeholder="请选择(必选)" name="costType" value="" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+                      <input type="text" class="data-picker" id="data-picker-{:index}" placeholder="请选择(必选)" name="costType" value="" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
                     </div>
                   </div>
                 </div>
@@ -299,6 +313,13 @@
                 </div>
               </div>
             </li>
+            <li class="item-content">
+              <div class="item-inner">
+                <div class="item-title">图片</div>
+                <div class="item-after"><span class="icon icon-picture upload-img-icon"></span></div>
+              </div>
+            </li>
+            <div class="upload-content"></div>
         </ul>
       </div>
 </script>

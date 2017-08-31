@@ -81,14 +81,12 @@ $(document).on("pageInit", function(e, pageId, $page) {
             });
         }
     };
-    !(function(){
-        if(gJsBridge){
-            gJsBridge.registerHandler('cameraBack', function(data, responseCallback) {
-                cameraCallback(data);
-            })
-        }
-    })()
 
+    if(gJsBridge){
+        gJsBridge.registerHandler('cameraBack', function(data, responseCallback) {
+            cameraCallback(data);
+        })
+    }
 });
 
 
