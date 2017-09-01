@@ -110,6 +110,7 @@
           </li>
     </ul>
   </div> 
+
   <div class="list-block">
       <ul>
         <li class="item-content">
@@ -119,28 +120,56 @@
           </div>
         </li>
         <div class="approve-content content-padded">
-          <div class="approve-item">
-            <div class="approve-img-content">
-              <img class="approve-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg">
+        {{#if approvers}}
+          {{#each approvers}}
+            {{> approver_item}}
+          {{/each}}
+        {{/if}}
+          {{#if approve_admin}}
+          <div class="approve-add">
+            <div class="approve-add-button">
+              <span class="icon-add icon">+</span>
             </div>
-            <div class="approve-text-content"><span class="approve-text">高育良</span></div>
           </div>
-          <div class="approve-item">
-            <div class="approve-img-content">
-              <img class="approve-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg">
+          {{/if}}
+
+        </div>
+      </ul>
+  </div>
+
+  <div class="list-block">
+      <ul>
+        <li class="item-content">
+          <div class="item-inner">
+            <div class="item-title">抄送人：（管理员设定）</div>
+            <div class="item-after"></div>
+          </div>
+        </li>
+        <div class="approve-content content-padded">
+        {{#if copysenders}}
+          {{#each copysenders}}
+            {{> approver_item}}
+          {{/each}}
+        {{/if}}
+          {{#if approve_admin}}
+          <div class="approve-add">
+            <div class="approve-add-button">
+              <span class="icon-add icon">+</span>
             </div>
-            <div class="approve-text-content"><span class="approve-text">高育良</span></div>
           </div>
-          <div class="approve-item">
-            <div class="approve-img-content">
-              <img class="approve-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg">
-            </div>
-            <div class="approve-text-content"><span class="approve-text">高育良</span></div>
-          </div>
+          {{/if}}
+
         </div>
       </ul>
   </div>
 </form> 
-<div id="templates" style="display:none">
-{{> expense_upload_item}}  
+<div id="templates_expense_upload_item" style="display:none">
+  {{> expense_upload_item}}  
 </div>
+<div id="templates_approver_item" style="display:none">
+  {{> approver_item}}  
+</div>
+<div id="proxyPickerBox" class="hide" style="display: none">
+      <input type="text" />
+ </div> 
+

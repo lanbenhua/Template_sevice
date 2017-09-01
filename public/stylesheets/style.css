@@ -6,9 +6,26 @@ a {
   color: #00B7FF;
 }
 
+
 /**
 	@notice: 前缀名为"ud-"的为自定义样式
 */
+
+.with-picker-modal:before{
+    content:" ";
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index: 11400;
+    background-color:rgba(0,0,0,.3);
+}
+
+.list-block textarea {
+	padding-left: 0;
+}
 
 .upload-content {
 	padding: 0 0.75rem;
@@ -41,32 +58,88 @@ a {
 
 .approve-content {
 	overflow: hidden;
+	padding-bottom: 0.6rem;
 }
 
 .approve-content .approve-item {
-	position: relative;
-	width: 4.4rem;
-	height: auto;
+	/*overflow: hidden;*/
 	float: left;
-	margin-right: 0.6rem;
-	margin-bottom: 0.6rem;
-	background: no-repeat center center;
-    background-size: cover;
+	display: inline-block;
+	margin-bottom: 0.8rem;
 }
 
-.approve-item .approve-img-content {
-	width: 2.8rem;
-	height: 2.8rem;
+.approve-content .approve-avatar, .approve-content .approve-process {
+	position: relative;
+	height: 3.4rem;
+	float: left;
+}
+
+.approve-content .approve-avatar {
+	width: 2.7rem;
+}
+
+.approve-content .approve-process {
+	width: 1.5rem;
+}
+
+.approve-process .approve-process-item {
+	position: relative;
+	width: 100%;
+	height: 2.5rem;
+	text-align: center;
+}
+
+.approve-content .approve-add {
+	float: left;
+	width: 2.5rem;
+}
+
+.approve-add .approve-add-button {
+	float: left;
+	width: 2.5rem;
+	height: 2.5rem;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
 	border-radius: 50%;
+	line-height: 2.3rem;
+	text-align: center;
+}
+
+.approve-avatar .approve-img-content {
+	position: relative;
+	width: 100%;
+	height: auto;
 	overflow: hidden;
 }
+
+.approve-avatar .approve-img-content .approve-delete{
+	position: absolute;
+	z-index: 2;
+	right: 0;
+	top: 0;
+}	
 
 .approve-content .approve-item img {
 	display: block;
 	outline: 0;
 	border: 0;
 	max-width: 100%;
+	border-radius: 50%;
 }
+
+.approve-content .approve-text-content {
+	line-height: 1;
+	margin-top: 0.3rem;
+}
+
+.approve-content .approve-text-content .approve-text {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 0.6rem;
+	text-align: center;
+}	
 
 
 

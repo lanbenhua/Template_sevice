@@ -53,6 +53,11 @@
         </div>
       </li>
       <div class="upload-content">
+        {{#if this.attachments}}
+          {{#each this.attachments}}
+            {{> expense_upload_item}} 
+          {{/each}}
+        {{/if}}
       </div>
   </ul>
 </div>
