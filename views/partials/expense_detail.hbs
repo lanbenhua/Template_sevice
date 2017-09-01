@@ -1,0 +1,58 @@
+<div class="ud-list-block-item">
+  <div class="content-block-title">
+    <div class="row">
+      <div class="col-50 expense-detail-index">报销明细</div>
+      <div class="col-50"><span class="delete-button">删除</span></div>
+    </div>
+  </div>
+  <ul>
+      <li class="picker">
+          <div class="item-content item-link">
+            <div class="item-inner">
+              <div class="item-title label">费用类型</div>
+              <div class="item-input">
+                <input type="text" class="data-picker" 
+                id="data-picker-{{#if costType}}{{@index}}{{else}}0{{/if}}" placeholder="请选择(必选)" name="costType" value="{{costType}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+              </div>
+            </div>
+          </div>
+      </li>
+      <li>
+          <div class="item-content item-link">
+            <div class="item-inner">
+              <div class="item-title label">发生时间</div>
+              <div class="item-input">
+                <input type="text" class="date-picker" placeholder="请选择(必选)" name="beginDate" value="{{beginDate}}" style="text-align:right" data-validation="required" data-validation-message="发生时间必选"/>
+              </div>
+            </div>
+          </div>
+      </li>
+      <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">费用金额</div>
+              <div class="item-input">
+                <input type="text" placeholder="输入金额，最多两位小数" name="payAmount" value="{{payAmount}}" data-validation="required,onlyMoney" data-validation-message='{"required":"费用金额不能为空","onlyMoney":"费用金额必须是一个金额，且最多保留两位小数"}'/>
+              </div>
+            </div>
+          </div>
+      </li>
+      <li class="align-top">
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-input">
+              <textarea name="payDescription" maxlength="300" placeholder="请输入费用说明" data-validation="required" data-validation-message="费用说明不能为空">{{payDescription}}</textarea>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="item-content">
+        <div class="item-inner">
+          <div class="item-title">图片</div>
+          <div class="item-after"><span class="icon icon-picture upload-img-icon"></span></div>
+        </div>
+      </li>
+      <div class="upload-content">
+      </div>
+  </ul>
+</div>

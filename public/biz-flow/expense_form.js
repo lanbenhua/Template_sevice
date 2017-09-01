@@ -124,7 +124,8 @@
             $.alert('cameraback no data');
         }else{
             console.log('cameraIndex',cameraIndex);
-            var tpl = $('#upload_item').html().replace(/{:src}/ig,data);
+            var tpl = $('#templates .upload-item').clone();
+            tpl.find('.upload-img').attr('src',data);
             $('#detailList .upload-content').eq(cameraIndex).append(tpl);
         }
     };
@@ -147,7 +148,8 @@
                 onChange: function(p, value, displayValue){
                     $.each(suptypeData,function(index,item){  //  update subtype data
                         if(item.title === value) getSubtypeData(item.id); 
-                    })
+                    });
+                    $("#sup_picker").trigger('change_subtype');
                 }
             }]
         });
@@ -164,10 +166,17 @@
                     values: ['']
                 }],
                 onChange: function(p,values,displayValues){
-
                 },
                 onOpen: function (picker) {
-                    picker.cols[0].replaceValues(subtypeData_options);
+                    if(! picker.initOpened) {
+                        picker.cols[0].replaceValues(subtypeData_options);
+                        picker.setValue(subtypeData_options[0]);
+                        picker.initOpened = true;
+                        $("#sup_picker").on('change_subtype',function(){
+                            picker.cols[0].replaceValues(subtypeData_options);
+                            picker.setValue(subtypeData_options[0]);
+                        });
+                    }
                 }
             });
         })
@@ -235,8 +244,12 @@
         hasDeleteButton(); // 初始化是否有删除开关
         // 增加表单明细
         $(document).on('click','#add-button',function (){
-            var tplItems = $('#tpl_deatil').html().replace(/{:index}/ig,gItemsIdx);
+            var tplItems = $('.ud-list-block-item').first().clone();
             gItemsIdx ++;
+            tplItems.find('input[id^="data-picker-"]').attr('id','data-picker-'+gItemsIdx);
+            tplItems.find('.upload-content').html('');
+            tplItems.find('input').val('');
+            tplItems.find('textarea').val('');
             $('#add-button').before(tplItems);
 
             // 更新表单明细的index
@@ -249,14 +262,22 @@
                     </header>',
                 cols: [{
                     textAlign: 'center',
-                    values: ['']
+                    values: subtypeData_options
                 }],
                 onChange: function(p,values,displayValues){
                 },
                 onOpen: function (picker) {
-                    picker.cols[0].replaceValues(subtypeData_options);
+                    if(! picker.initOpened) {
+                        picker.initOpened = true;
+                        picker.mySelector = "#data-picker-"+gItemsIdx;
+                        $("#sup_picker").on('change_subtype',function(){
+                            picker.cols[0].replaceValues(subtypeData_options);
+                            $(picker.mySelector).val('');
+                        });
+                    }
                 }
             });
+           
             
             $(".date-picker").datetimePicker({
                 // value: ['1985', '12', '04', '9', '34'],
