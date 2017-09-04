@@ -1,0 +1,19 @@
+<div class="process-item">
+	<div class="process-header">
+		<em class="process-state-box"><span class="process-state process-agree"></span></em>
+		<img width="24" height="24" src="{{avatar}}">
+		<span>{{displayName}}</span> · <span>{{state}}</span>
+	</div>
+	<div class="process-content"> 
+		<div class="process-comment">
+			{{opinion}}
+		</div>
+		{{#if attachments}}
+			<div class="process-attachment">
+				{{#each attachments}}
+					<div class="process-attach"><img src="{{this}}" alt=""></div>
+				{{/each}}
+			</div>
+		{{/if}}
+	</div>
+</div>

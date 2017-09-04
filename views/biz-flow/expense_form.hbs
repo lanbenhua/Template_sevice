@@ -6,7 +6,7 @@
                 <div class="item-inner">
                   <div class="item-title label">报销类型</div>
                   <div class="item-input">
-                    <input type="text" id="sup_picker" class="" name="payType" value="{{lastSubmit.payType}}" style="text-align:right;" placeholder="请选择(必选)" data-validation="required" data-validation-message="报销类型必选"/>
+                    <input type="text" id="sup_picker" class="" name="payType" value="{{lastSubmit.content.exptype}}" style="text-align:right;" placeholder="请选择(必选)" data-validation="required" data-validation-message="报销类型必选"/>
                   </div>
                 </div>
               </div>
@@ -15,7 +15,7 @@
             <div class="item-content">
               <div class="item-inner">
                 <div class="item-input">
-                  <textarea name="payReason" maxlength="300" placeholder="请输入报销事由" data-validation="required" data-validation-message="报销事由不能为空">{{lastSubmit.payReason}}</textarea>
+                  <textarea name="payReason" maxlength="300" placeholder="请输入报销事由" data-validation="required" data-validation-message="报销事由不能为空">{{lastSubmit.content.reason}}</textarea>
                 </div>
               </div>
             </div>
@@ -24,8 +24,8 @@
   </div>
 
   <div class="list-block" id="detailList">
-   {{#if lastSubmit.payItems}}
-      {{#each lastSubmit.payItems}}
+   {{#if lastSubmit.content.items}}
+      {{#each lastSubmit.content.items}}
         {{> expense_detail}}
       {{/each}}
    {{else}}
@@ -41,7 +41,7 @@
                 <div class="item-inner">
                   <div class="item-title label">收款单位\人</div>
                   <div class="item-input">
-                    <input type="text" placeholder="请填写收款单位或个人" name="payee" value="{{lastSubmit.payee}}" data-validation="required" data-validation-message="收款单位\人不能为空"/>
+                    <input type="text" placeholder="请填写收款单位或个人" name="payee" value="{{lastSubmit.content.payee.receiver}}" data-validation="required" data-validation-message="收款单位\人不能为空"/>
                   </div>
                 </div>
               </div>
@@ -51,7 +51,7 @@
                 <div class="item-inner">
                   <div class="item-title label">收款银行</div>
                   <div class="item-input">
-                    <input type="text" placeholder="如:中国银行-上海陆家嘴软件园支行" name="payeeBank" value="{{lastSubmit.payeeBank}}" data-validation="required" data-validation-message="收款单位\人不能为空"/>
+                    <input type="text" placeholder="如:中国银行-上海陆家嘴软件园支行" name="payeeBank" value="{{lastSubmit.content.payee.bankName}}" data-validation="required" data-validation-message="收款单位\人不能为空"/>
                   </div>
                 </div>
               </div>
@@ -61,7 +61,7 @@
                 <div class="item-inner">
                   <div class="item-title label">收款账号</div>
                   <div class="item-input">
-                    <input type="text" placeholder="请填收款账号" name="payeeAccount" value="{{lastSubmit.payeeAccount}}" data-validation="required,integer" data-validation-message='{"required":"费用金额不能为空","integer":"银行收款账号错误"}'/>
+                    <input type="text" placeholder="请填收款账号" name="payeeAccount" value="{{lastSubmit.content.payee.bankAccount}}" data-validation="required,integer" data-validation-message='{"required":"费用金额不能为空","integer":"银行收款账号错误"}'/>
                   </div>
                 </div>
               </div>
@@ -70,7 +70,7 @@
               <label class="label-checkbox item-content">
                 <div class="item-inner">
                   <div class="item-title">保存为默认收款人</div>
-                   <input type="checkbox" name="saveAsDefault" {{#if lastSubmit.saveAsDefault}}checked{{/if}} ／>
+                   <input type="checkbox" name="saveAsDefault" {{#if lastSubmit.content.payee.saveAsDefault}}checked{{/if}} ／>
                    <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                 </div>
               </label>
@@ -84,7 +84,7 @@
         <label class="label-checkbox item-content">
           <div class="item-inner">
             <div class="item-title">是否为增值税专用发票</div>
-             <input type="checkbox" name="isVAT" {{#if lastSubmit.isVAT}}checked{{/if}} ／>
+             <input type="checkbox" name="isVAT" {{#if lastSubmit.content.payee.isVAT}}checked{{/if}} ／>
              <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
           </div>
         </label>
@@ -93,17 +93,17 @@
         <label class="label-checkbox item-content" id="hasTaxpayerNo-checkbox">
           <div class="item-inner">
             <div class="item-title">是否有纳税人识别号</div>
-            <input type="checkbox" id="hasTaxpayerNo" name="hasTaxpayerNo" {{#if lastSubmit.hasTaxpayerNo}}checked{{/if}} ／>
+            <input type="checkbox" id="hasTaxpayerNo" name="hasTaxpayerNo" {{#if lastSubmit.content.payee.hasTaxpayerNo}}checked{{/if}} ／>
             <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
           </div>
         </label>
       </li>
-      <li id="taxpayerNo-input" {{#unless lastSubmit.hasTaxpayerNo}}style="display:none"{{/unless}}>
+      <li id="taxpayerNo-input" {{#unless lastSubmit.content.payee.hasTaxpayerNo}}style="display:none"{{/unless}}>
               <div class="item-content">
                 <div class="item-inner">
                   <div class="item-title label">纳税人识别号</div>
                   <div class="item-input">
-                    <input type="text" placeholder="请填写纳税人识别号" name="taxpayerNo" value="{{lastSubmit.taxpayerNo}}" data-validation="condRequired[hasTaxpayerNo]" data-validation-message="纳税人识别号不能为空"／>
+                    <input type="text" placeholder="请填写纳税人识别号" name="taxpayerNo" value="{{lastSubmit.content.payee.taxpayerNo}}" data-validation="condRequired[hasTaxpayerNo]" data-validation-message="纳税人识别号不能为空"／>
                   </div>
                 </div>
               </div>
@@ -120,12 +120,12 @@
           </div>
         </li>
         <div class="approve-content content-padded">
-        {{#if approvers}}
-          {{#each approvers}}
+        {{#if data.approvers}}
+          {{#each data.approvers}}
             {{> approver_item}}
           {{/each}}
         {{/if}}
-          {{#if approve_admin}}
+          {{#if data.approve_admin}}
           <div class="approve-add">
             <div class="approve-add-button">
               <span class="icon-add icon">+</span>
@@ -146,12 +146,12 @@
           </div>
         </li>
         <div class="approve-content content-padded">
-        {{#if copysenders}}
-          {{#each copysenders}}
+        {{#if data.copysenders}}
+          {{#each data.copysenders}}
             {{> approver_item}}
           {{/each}}
         {{/if}}
-          {{#if approve_admin}}
+          {{#if data.approve_admin}}
           <div class="approve-add">
             <div class="approve-add-button">
               <span class="icon-add icon">+</span>

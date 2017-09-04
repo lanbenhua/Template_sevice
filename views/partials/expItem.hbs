@@ -1,0 +1,34 @@
+<div class="block-container">
+	<div class="block-header">
+		<div class="block-header-main">
+			<h2 class="block-header-title">报销明细</h2>
+		</div>
+	</div>
+	<div class="block-content">
+		<ul class="block-list">
+			<li class="block-item">
+				<label class="list-label">费用类型：</label><div class="list-info">{{costtype}}</div>
+			</li>
+			<li class="block-item">
+				<label class="list-label">发生时间：</label><div class="list-info">{{beginDate}}</div>
+			</li>
+			<li class="block-item">
+				<label class="list-label">费用金额：</label><div class="list-info">{{amount}}</div>
+			</li>
+			<li class="block-item">
+				<label class="list-label">费用说明：</label><div class="list-info">{{description}}</div>
+			</li>
+			<li class="block-item">
+				<label class="list-label">票据图片：</label>
+				<div class="list-info">
+					<ul class="list-image">
+						{{#each attachments}}
+							<li class="item-image"><img src="{{this}}" alt=""></li>
+						{{/each}}
+					</ul>
+				</div>
+			</li>
+
+		</ul>
+	</div>
+</div>

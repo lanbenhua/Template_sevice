@@ -6,6 +6,17 @@ a {
   color: #00B7FF;
 }
 
+ul, ol, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+h1, h2, h3 ,h4 ,h5, h6 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
 
 /**
 	@notice: 前缀名为"ud-"的为自定义样式
@@ -34,8 +45,8 @@ a {
 
 .upload-content .upload-item {
 	position: relative;
-	width: 4.4rem;
-	height: 4.4rem;
+	width: 3.6rem;
+	height: 3.6rem;
 	float: left;
 	margin-right: 0.6rem;
 	margin-bottom: 0.6rem;
@@ -58,7 +69,7 @@ a {
 
 .approve-content {
 	overflow: hidden;
-	padding-bottom: 0.6rem;
+	/*padding-bottom: 0.6rem;*/
 }
 
 .approve-content .approve-item {
@@ -70,7 +81,7 @@ a {
 
 .approve-content .approve-avatar, .approve-content .approve-process {
 	position: relative;
-	height: 3.4rem;
+	height: 3.6rem;
 	float: left;
 }
 
@@ -92,6 +103,7 @@ a {
 .approve-content .approve-add {
 	float: left;
 	width: 2.5rem;
+	margin-bottom: 0.6rem;
 }
 
 .approve-add .approve-add-button {
@@ -140,6 +152,389 @@ a {
 	font-size: 0.6rem;
 	text-align: center;
 }	
+
+
+.block-container {
+    margin: 0.7rem 0;
+    padding: 0.7rem;
+    background-color: #fff;
+}
+
+.block-header {
+    display: -webkit-box; 
+    display: -moz-box; 
+    display: -ms-flexbox; 
+    display: -webkit-flex; 
+    display: flex; 
+
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.block-header-split {
+    position: relative;
+}
+
+.block-header-split:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0; 
+    left: 0;
+    right: -0.7rem;
+    display: block;
+    height: 1px;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    background: #d9d9d9;
+}
+
+.block-header-split + .block-content {
+    padding-top: 0.7rem;
+}
+
+.block-header-avatar {
+    -webkit-box-flex: 0;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    margin-right: 0.7rem;
+
+    display: -webkit-box; 
+    display: -moz-box; 
+    display: -ms-flexbox; 
+    display: -webkit-flex; 
+    display: flex; 
+
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+.block-header-avatar img {
+    display: block;
+}
+
+.block-header-main {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 0px;
+    flex: 1 0 0px;
+    min-width: 0;
+}
+.block-header-title {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.block-header-label {
+    border-radius: 0.1rem;
+    padding: 0 0.1rem;
+    font-size: 0.6rem;
+    color: #fff;
+}
+
+.block-header-label.label-blue {
+    background-color: #4285f4;
+}
+.block-header-label.label-red {
+    background-color: #ea4335;
+}
+.block-header-label.label-yellow {
+    background-color: #fabb4b;
+}
+
+.block-list .block-item {
+    display: -webkit-box; 
+    display: -moz-box; 
+    display: -ms-flexbox; 
+    display: -webkit-flex; 
+    display: flex; 
+
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+
+    -webkit-box-align: start;
+    -moz-align-items: flex-start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    line-height: 1.4;
+    margin-bottom: 0.2rem;
+}
+
+.block-item .list-label {
+    -webkit-box-flex: 0;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    -webkit-box-align: start;
+    -moz-align-items: flex-start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    flex-shrink: 0;
+    margin-right: 0.25rem;
+    font-size: 0.7rem;
+    color: #333;
+}
+.block-item .list-info {
+    -webkit-box-align: start;
+    -moz-align-items: flex-start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    color: #777;
+    font-size: 0.7rem;
+}
+
+.list-image {
+    padding-top: 0.15rem;
+}
+
+.list-image:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.list-image .item-image {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    overflow: hidden;
+    float: left;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.list-image .item-image .item-image-loading {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: url(../img/spinner.gif) no-repeat center;
+}
+.list-image .item-image img {   
+    position: relative;
+    z-index: 2;
+    display: block;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    background: url(../img/img_broken.png) no-repeat center;
+    background-size: cover;
+
+}
+
+.block-footer {
+    position: relative;
+    padding-top: 0.7rem;
+    font-size: 0.75rem;
+    color: #666;
+}
+.block-footer:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0; 
+    left: 0;
+    right: -0.7rem;;
+    display: block;
+    height: 1px;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    background: #d9d9d9;
+}
+
+.app-toolbar {
+    width: 100%;
+    height: 2.5rem;
+    -webkit-box-flex: 0;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.toolbar {
+    display: -webkit-box; 
+    display: -moz-box; 
+    display: -ms-flexbox; 
+    display: -webkit-flex; 
+    display: flex; 
+
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.toolbar .toolbar-button {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 0px;
+    flex: 1 0 0px;
+    min-width: 0;
+    text-align: center;
+    line-height: 2.5rem;
+    text-decoration: none;
+    color: #4285F4;
+    font-size: 0.8rem;
+}
+.toolbar .toolbar-button:first-child {
+    background: #fff;
+}
+.toolbar .toolbar-button:last-child {
+    background: #D9D9D9;
+}
+
+.process-container {
+    position: relative;
+}
+.process-container:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+    
+.process-container .process-item {
+    position: relative;
+    display: block;
+    padding-left: 1.5rem;
+    margin-bottom: 0.7rem;
+}
+
+.process-container .process-item:not(:last-child):after {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    left: 1rem;
+    top: 0.75rem;
+    bottom: -0.9rem;
+    width: 1px;
+    height: auto;
+    background-color: #2D7BF0;
+}
+
+.process-container .process-item .process-user {
+    display: block;
+    margin-top: 0.2rem;
+    width: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.65rem;
+    text-align: center;
+}
+
+.process-container .process-item .process-header {
+    display: -webkit-box; 
+    display: -moz-box; 
+    display: -ms-flexbox; 
+    display: -webkit-flex; 
+    display: flex; 
+
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    vertical-align: middle;
+    font-size: 0.75rem;
+}
+
+.process-container .process-item .process-header img {
+    margin-right: 0.25rem;
+}
+
+.process-state-box {
+    position: absolute;
+    z-index: 2;
+    top: 0.25rem;
+    left: 0.1rem;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    padding: 0.1rem;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.process-state {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.process-agree {
+    background-image: url(../img/selected.png);
+}
+.process-refuse {
+    background-image: url(../img/delete.png);
+}
+.process-expense {
+    background-image: url(../img/daishenpi.png);
+}
+
+.process-comment {
+    font-size: 0.65rem;
+    color: #999;
+    margin-bottom: 0.6rem;
+}
+
+.process-attachment > div.process-attach {
+    position: relative;
+    display: inline-block;
+    width: 3rem; 
+    height: 3rem;
+    margin-right: 0.25rem;
+    overflow: hidden;
+}
+.process-attachment > div.process-attach img {
+    position: relative;
+    z-index: 2;
+    display: block;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    background: url(../img/img_broken.png) no-repeat center;
+    background-size: cover;
+}
 
 
 

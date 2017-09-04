@@ -15,36 +15,43 @@
     window.gAttachments = [];  // 保存上传照片的数组 (二维数组) 
     // 表单提交组装值 json
     window.pageSubmit = function(){
-        var $payItem = $('.ud-list-block-item'),
-            payItem = [];
+        var $items = $('.ud-list-block-item'),
+            items = [];
 
-        $payItem.each(function(index,item){
+        $items.each(function(index,item){
             var $imgs = $(item).find('.upload-content .upload-item .upload-img'),
                 attachments = [];
             $.each($imgs, function(i, img){
                 attachments.push($(img).attr('src'));
             });
             window.gAttachments.push(attachments);
-            payItem.push({
-                costType: $(item).find('input[name=costType]').val(),
+            items.push({
+                costtype: $(item).find('input[name=costType]').val(),
                 beginDate: $(item).find('input[name=beginDate]').val(),
-                payAmount: $(item).find('input[name=payAmount]').val(),
-                payDescription: $(item).find('textarea[name=payDescription]').val(),
+                amount: $(item).find('input[name=payAmount]').val(),
+                description: $(item).find('textarea[name=payDescription]').val(),
                 attachments: attachments
             });
         })
 
         return {
-            payType: $('input[name=payType]').val(),
-            payReason: $('textarea[name=payReason]').val(),
-            payItems:payItem,
-            payee: $('input[name=payee]').val(),
-            payeeBank: $('input[name=payeeBank]').val(),
-            payeeAccount: $('input[name=payeeAccount]').val(),
-            saveAsDefault: $('input[name=saveAsDefault]:checked').length > 0,
-            isVAT: $('input[name=isVAT]:checked').length > 0,
-            hasTaxpayerNo: $('input[name=hasTaxpayerNo]:checked').length > 0,
-            taxpayerNo: $('input[name=hasTaxpayerNo]:checked').length > 0 ? $('input[name=taxpayerNo]').val() : null
+            content: {
+                exptype: $('input[name=payType]').val(),
+                reason: $('textarea[name=payReason]').val(),
+                items:items,
+                payee: {
+                    receiver: $('input[name=payee]').val(),
+                    bankName: $('input[name=payeeBank]').val(),
+                    bankAccount: $('input[name=payeeAccount]').val(),
+                    saveAsDefault: $('input[name=saveAsDefault]:checked').length > 0,
+                    isVAT: $('input[name=isVAT]:checked').length > 0,
+                    hasTaxpayerNo: $('input[name=hasTaxpayerNo]:checked').length > 0,
+                    taxpayerNo: $('input[name=hasTaxpayerNo]:checked').length > 0 ? $('input[name=taxpayerNo]').val() : null
+                }
+            },
+            approvers: [
+                {}
+            ]
         }
     };
 
@@ -57,17 +64,30 @@
             $.each(typeData, function(key, value){
                 var data = {
                     id: key,
-                    title: value.title || '无'
+                    title: value.title
                 }
                 suptypeData.push(data);
-                suptypeData_options.push(value.title || '无');
+                suptypeData_options.push(value.title);
             })
             console.log(JSON.stringify(suptypeData_options))
+        }else{
+            $('.sup_picker').hide();
+            $('.picker').hide();
         }
     };
+    // 根据报销数据的title获取报销类型的ID
+    var getSuptypeId = function(title){
+        var i=0, l=suptypeData.length, suptype;
+        for( ; i<l; i++){
+            if(suptypeData[i].title === title){
+                suptype = suptypeData[i].id;
+                break;
+            }
+        }
+        return suptype;
+    }
     // @param id  // 获取费用类型数据
     var getSubtypeData = function(suptype){ 
-        if(typeof suptype === 'undefined') return subtypeData_options.push('无');
         if(typeData){
             var cur_subtype = typeData[suptype].subtype;
             subtypeData = []; 
@@ -76,15 +96,18 @@
                 $.each(cur_subtype, function(key, value){
                     var data = {
                         id: key,
-                        title: value.title || '无'
+                        title: value.title
                     }
                     subtypeData.push(data);
-                    subtypeData_options.push(value.title || '无');
+                    subtypeData_options.push(value.title);
                 })
             }
-            else{
-                subtypeData.push({});
-                subtypeData_options.push('无');
+            else{ // no subtype data
+                $('.picker').hide(); // 
+                $('.picker').find('.data-picker').attr('data-validation','');// not required
+                $('.picker').find('.data-picker').val(''); // 清空值
+                // subtypeData.push({});
+                // subtypeData_options.push('无');
             }
             console.log(JSON.stringify(subtypeData_options))
         }
@@ -133,7 +156,7 @@
         console.log('pageInit handler running!');
 
         getSuptypeData();  // 初始化报销类型数据
-        getSubtypeData(); // 初始化费用类型类型数据 默认无
+        getSubtypeData(getSuptypeId(lastSubmit_exptype) || suptypeData[0].id); // 初始化费用类型类型数据 默认无
         $.cxValidation.attach($('#expense_form')); // 绑定表单验证
 
         var sup_picker = $("#sup_picker").picker({
@@ -145,14 +168,9 @@
                 textAlign: 'center',
                 values:  suptypeData_options, 
                 onChange: function(picker, value, displayValue){
-                    var i=0, l=suptypeData.length;
-                    for( ; i<l; i++){
-                        if(suptypeData[i].title === value){
-                            getSubtypeData(suptypeData[i].id); 
-                            break;
-                        }
-                    }
-                    if(subtypeData_options.length === 1 && subtypeData_options[0] === '无'){
+                    var i=0, l=suptypeData.length, suptype = getSuptypeId(value);
+                    getSubtypeData(suptype); 
+                    if(subtypeData_options.length === 0){
                         $('.picker').hide();
                     }else{
                         $('.picker').show();
