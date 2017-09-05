@@ -135,7 +135,8 @@ h1, h2, h3 ,h4 ,h5, h6 {
 	display: block;
 	outline: 0;
 	border: 0;
-	max-width: 100%;
+	width: 100%;
+	height: 2.7rem;
 	border-radius: 50%;
 }
 
@@ -341,7 +342,7 @@ h1, h2, h3 ,h4 ,h5, h6 {
     display: inline-block;
     width: 100%;
     height: 100%;
-    background: url(../img/spinner.gif) no-repeat center;
+    background: url(/img/spinner.gif) no-repeat center;
 }
 .list-image .item-image img {   
     position: relative;
@@ -351,7 +352,7 @@ h1, h2, h3 ,h4 ,h5, h6 {
     min-width: 100%;
     min-height: 100%;
     max-height: 100%;
-    background: url(../img/img_broken.png) no-repeat center;
+    background: url(/img/img_broken.png) no-repeat center;
     background-size: cover;
 
 }
@@ -501,13 +502,13 @@ h1, h2, h3 ,h4 ,h5, h6 {
     background-size: contain;
 }
 .process-agree {
-    background-image: url(../img/selected.png);
+    background-image: url(/img/selected.png);
 }
 .process-refuse {
-    background-image: url(../img/delete.png);
+    background-image: url(/img/delete.png);
 }
 .process-expense {
-    background-image: url(../img/daishenpi.png);
+    background-image: url(/img/daishenpi.png);
 }
 
 .process-comment {
@@ -532,7 +533,7 @@ h1, h2, h3 ,h4 ,h5, h6 {
     min-width: 100%;
     min-height: 100%;
     max-height: 100%;
-    background: url(../img/img_broken.png) no-repeat center;
+    background: url(/img/img_broken.png) no-repeat center;
     background-size: cover;
 }
 

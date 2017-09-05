@@ -11,34 +11,17 @@
         subtypeData_options = [], // 保存费用类型picker的数据
         max_upload_count = 8,  // 每个明细最多上传个数
         isFirstClick = true;  // 上传初次点击弹出alert提示
-
-    window.gAttachments = [];  // 保存上传照片的数组 (二维数组) 
+        window.gAttachments = [];  // 保存上传照片的数组 (二维数组) 
     // 表单提交组装值 json
     window.pageSubmit = function(){
-        var $items = $('.ud-list-block-item'),
-            items = [];
-
-        $items.each(function(index,item){
-            var $imgs = $(item).find('.upload-content .upload-item .upload-img'),
-                attachments = [];
-            $.each($imgs, function(i, img){
-                attachments.push($(img).attr('src'));
-            });
-            window.gAttachments.push(attachments);
-            items.push({
-                costtype: $(item).find('input[name=costType]').val(),
-                beginDate: $(item).find('input[name=beginDate]').val(),
-                amount: $(item).find('input[name=payAmount]').val(),
-                description: $(item).find('textarea[name=payDescription]').val(),
-                attachments: attachments
-            });
-        })
-
+        var items_detail = getDetailItems(), 
+            items_approvers = getApproversItems(), 
+            items_copysenders = getCopysendersItems();
         return {
             content: {
                 exptype: $('input[name=payType]').val(),
                 reason: $('textarea[name=payReason]').val(),
-                items:items,
+                items:items_detail,
                 payee: {
                     receiver: $('input[name=payee]').val(),
                     bankName: $('input[name=payeeBank]').val(),
@@ -49,10 +32,64 @@
                     taxpayerNo: $('input[name=hasTaxpayerNo]:checked').length > 0 ? $('input[name=taxpayerNo]').val() : null
                 }
             },
-            approvers: [
-                {}
-            ]
+            approvers: items_approvers,
+            copysenders: items_copysenders,
         }
+    };
+
+    var getDetailItems = function(){
+        var $items = $('.ud-list-block-item'),items = [], attachments;
+        $items.each(function(index,item){
+            attachments = getAttachments(item);
+            window.gAttachments.push(attachments);
+            items.push({
+                costtype: $(item).find('input[name=costtype]').val(),
+                beginDate: $(item).find('input[name=beginDate]').val(),
+                amount: $(item).find('input[name=amount]').val(),
+                description: $(item).find('textarea[name=description]').val(),
+                attachments: attachments
+            });
+        })
+        return items;
+    };
+
+    var getAttachments = function(item){
+         var $imgs = $(item).find('.upload-content .upload-item .upload-img'),
+            attachments = [];
+        $.each($imgs, function(i, img){
+            attachments.push($(img).attr('src'));
+        });
+        return attachments;
+    };
+
+    var getApproversItems = function(){
+        var $items = $('#approvers').find('.approve-item'), items = [];
+        $items.each(function(index,item){   
+            var userId = $(item).find('.approve-avatar').attr('data-uid'),
+                avatar = $(item).find('.approve-img').attr('src'),
+                displayName = $(item).find('.approve-text').text();
+            items.push({
+                userId: userId,
+                avatar: avatar,
+                displayName: displayName
+            })
+        })
+        return items;
+    };
+
+    var getCopysendersItems = function(){
+        var $items = $('#copysenders').find('.approve-item'), items = [];
+        $items.each(function(index,item){   
+            var userId = $(item).find('.approve-avatar').attr('data-uid'),
+                avatar = $(item).find('.approve-img').attr('src'),
+                displayName = $(item).find('.approve-text').text();
+            items.push({
+                userId: userId,
+                avatar: avatar,
+                displayName: displayName
+            })
+        })
+        return items;
     };
 
     /**
@@ -152,12 +189,13 @@
         }
     };
 
+
     $(document).on("pageInit", function(e, pageId, $page){
         console.log('pageInit handler running!');
 
         getSuptypeData();  // 初始化报销类型数据
-        getSubtypeData(getSuptypeId(lastSubmit_exptype) || suptypeData[0].id); // 初始化费用类型类型数据 默认无
-        $.cxValidation.attach($('#expense_form')); // 绑定表单验证
+        getSubtypeData(getSuptypeId(lastSubmit_exptype) || suptypeData[0].id); // 初始化费用类型类型数据 
+        $.cxValidation.attach($('#validate_form')); // 绑定表单验证
 
         var sup_picker = $("#sup_picker").picker({
             toolbarTemplate: '<header class="bar bar-nav">\
@@ -330,12 +368,13 @@
 
     $(document).on("pageInit", function(e, pageId, $page) {
         //  add approver
-        var data = [{"avatar": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg", "displayName": "而感慨"},{"avatar": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg", "displayName": "ERGE"}] 
+        var data = [{"userId":"@alice:finogeeks.club","avatar": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg", "displayName": "而感慨"},{"userId":"@alice:finogeeks.club","avatar": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504090478566&di=bde55eaf08b6aed9823e9d7a946fefe1&imgtype=0&src=http%3A%2F%2Fk2.jsqq.net%2Fuploads%2Fallimg%2F1702%2F10_170208140118_3.jpg", "displayName": "ERGE"}] 
         
         $(document).on('click', '.approve-add-button', function(){
             var _this = $(this);
             $.each(data, function(index, approver){
                 var tplItems = $('#templates_approver_item').find('.approve-item').clone();
+                tplItems.find('.approve-avatar').attr('data-uid',approver.userId);
                 tplItems.find('.approve-img').attr('src',approver.avatar);
                 tplItems.find('.approve-text').text(approver.displayName);
                 _this.parents('.approve-add').before(tplItems);
@@ -349,6 +388,13 @@
             item1.remove();
             item2.remove();
         });
+
+        initLastArron();
+        function initLastArron(){
+            if(!approve_admin){
+                $('.approve-content').find('.approve-item').last().find('.approve-process').hide();
+            }
+        }
     })
     
     

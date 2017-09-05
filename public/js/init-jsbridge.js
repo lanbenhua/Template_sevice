@@ -71,7 +71,7 @@ $(document).on("pageInit", function(e, pageId, $page) {
         
             }.bind(this));
         else 
-            alert(JSON.stringify(data,null,4));
+            console.log(JSON.stringify(data,null,4));
     };
 
     window.openCamera = function(){

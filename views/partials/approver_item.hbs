@@ -1,10 +1,12 @@
 <div class="approve-item">
-	<div class="approve-avatar">
+	<div class="approve-avatar" data-uid="{{#if this}}{{this.userId}}{{else}}{{''}}{{/if}}">
 		<div class="approve-img-content">
 	  		<img class="approve-img" src="{{#if this}}{{this.avatar}}{{else}}{{''}}{{/if}}">
-	  		<div class="approve-delete">
-	  			<span class="icon icon-remove"></span>
-	  		</div>
+	  		{{#if approve_admin}}
+		  		<div class="approve-delete">
+		  			<span class="icon icon-remove"></span>
+		  		</div>
+		  	{{/if}}
 	  		<div class="approve-text-content"><span class="approve-text">{{#if this}}{{this.displayName}}{{else}}{{''}}{{/if}}</span></div>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-<form id="expense_form">
+<form id="validate_form">
   <div class="list-block">
       <ul>
           <li class="sup_picker">
@@ -119,13 +119,13 @@
             <div class="item-after"></div>
           </div>
         </li>
-        <div class="approve-content content-padded">
+        <div class="approve-content content-padded" id="approvers">
         {{#if data.approvers}}
           {{#each data.approvers}}
             {{> approver_item}}
           {{/each}}
         {{/if}}
-          {{#if data.approve_admin}}
+          {{#if approve_admin}}
           <div class="approve-add">
             <div class="approve-add-button">
               <span class="icon-add icon">+</span>
@@ -145,13 +145,13 @@
             <div class="item-after"></div>
           </div>
         </li>
-        <div class="approve-content content-padded">
+        <div class="approve-content content-padded" id="copysenders">
         {{#if data.copysenders}}
           {{#each data.copysenders}}
             {{> approver_item}}
           {{/each}}
         {{/if}}
-          {{#if data.approve_admin}}
+          {{#if approve_admin}}
           <div class="approve-add">
             <div class="approve-add-button">
               <span class="icon-add icon">+</span>
@@ -162,6 +162,9 @@
         </div>
       </ul>
   </div>
+  <div class="content-block">
+    <p><a href="#" class="button button-big button-fill" id="page-submit">提交</a></p>
+  </div>
 </form> 
 <div id="templates_expense_upload_item" style="display:none">
   {{> expense_upload_item}}  
@@ -171,5 +174,16 @@
 </div>
 <div id="proxyPickerBox" class="hide" style="display: none">
       <input type="text" />
- </div> 
-
+</div> 
+<script type="text/javascript">
+  var typeData, approve_admin, lastSubmit_exptype;
+  {{#if data.type_options}}
+      typeData = {{{json data.type_options }}};
+  {{/if}}
+  {{#if approve_admin}}
+      approve_admin = {{{json approve_admin }}};
+  {{/if}}
+  {{#if lastSubmit.content.exptype}}
+      lastSubmit_exptype = {{{json lastSubmit.content.exptype }}};
+  {{/if}}
+</script>

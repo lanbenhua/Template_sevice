@@ -12,7 +12,7 @@
               <div class="item-title label">费用类型</div>
               <div class="item-input">
                 <input type="text" class="data-picker" 
-                id="data-picker-{{#if costtype}}{{@index}}{{else}}0{{/if}}" placeholder="请选择(必选)" name="costType" value="{{costtype}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
+                id="data-picker-{{#if costtype}}{{@index}}{{else}}0{{/if}}" placeholder="请选择(必选)" name="costtype" value="{{costtype}}" style="text-align:right" data-validation="required" data-validation-message="费用类型必选"/>
               </div>
             </div>
           </div>
@@ -32,7 +32,7 @@
             <div class="item-inner">
               <div class="item-title label">费用金额</div>
               <div class="item-input">
-                <input type="text" placeholder="输入金额，最多两位小数" name="payAmount" value="{{amount}}" data-validation="required,onlyMoney" data-validation-message='{"required":"费用金额不能为空","onlyMoney":"费用金额必须是一个金额，且最多保留两位小数"}'/>
+                <input type="text" placeholder="输入金额，最多两位小数" name="amount" value="{{amount}}" data-validation="required,onlyMoney" data-validation-message='{"required":"费用金额不能为空","onlyMoney":"费用金额必须是一个金额，且最多保留两位小数"}'/>
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
         <div class="item-content">
           <div class="item-inner">
             <div class="item-input">
-              <textarea name="payDescription" maxlength="300" placeholder="请输入费用说明" data-validation="required" data-validation-message="费用说明不能为空">{{description}}</textarea>
+              <textarea name="description" maxlength="300" placeholder="请输入费用说明" data-validation="required" data-validation-message="费用说明不能为空">{{description}}</textarea>
             </div>
           </div>
         </div>
